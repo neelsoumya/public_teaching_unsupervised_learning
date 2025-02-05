@@ -16,6 +16,8 @@ Public teaching resource on unsupervised learning
 
 * https://www.statlearning.com/
 
+* https://bioinfotraining.bio.cam.ac.uk/
+
 ## Contact
 
 Soumya Banerjee
