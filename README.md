@@ -18,6 +18,8 @@ Public teaching resource on unsupervised learning
 
 * https://bioinfotraining.bio.cam.ac.uk/
 
+* Matt Castle, Alexia Cordona, Cathy Hemmings, Paul Judge and Paul Fannon
+
 ## Contact
 
 Soumya Banerjee
