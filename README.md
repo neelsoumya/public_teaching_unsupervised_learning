@@ -12,11 +12,19 @@ Public teaching resource on unsupervised learning
 
 `practical` folder has files for practicals
 
+`mathematics_data_science.pdf` has additional mathematical notes for the mathematics behind PCA
+
+Also available here:
+
+https://osf.io/preprints/osf/mnh8d_v1
+
 ## Acknowledgements
 
 * https://www.statlearning.com/
 
 * https://bioinfotraining.bio.cam.ac.uk/
+
+* https://osf.io/preprints/osf/mnh8d_v1
 
 * Matt Castle, Alexia Cordona, Cathy Hemmings, Paul Judge and Paul Fannon
 
