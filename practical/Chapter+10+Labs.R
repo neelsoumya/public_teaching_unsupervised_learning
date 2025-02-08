@@ -7,8 +7,10 @@
 #  install.packages('ISLR')
 library(ISLR)
 
+########################################
 # Try demo below
-https://projector.tensorflow.org/
+# https://projector.tensorflow.org/
+########################################
   
 
 states=row.names(USArrests)
@@ -46,13 +48,14 @@ pve
 
 plot(pve, xlab="Principal Component", ylab="Proportion of Variance Explained", ylim=c(0,1),type='b')
 plot(cumsum(pve), xlab="Principal Component", ylab="Cumulative Proportion of Variance Explained", ylim=c(0,1),type='b')
-a=c(1,2,8,-3)
-cumsum(a)
+#a=c(1,2,8,-3)
+#cumsum(a)
 
-# TODO: apply to image data
+#################################################
+# apply to image data
 #   https://www.rpubs.com/a_pear_9/pca_on_images
+#################################################
 
-# TODO: apply to bulk sequencing data
 library(raster)
 # Import the picture as a raster
 pepper <- stack("Pepper.PNG")[[1:3]]
@@ -68,7 +71,9 @@ plot(
 )
 
 
-# To perform PCA, we can’t leave it in image format. We want to create a data.frame with each pixel in a single row and each colour band as a column.
+# To perform PCA, we can’t leave it in image format. 
+# We want to create a data.frame with each pixel in
+# a single row and each colour band as a column.
 
 
 # Extract all pixels as data frame
@@ -102,6 +107,12 @@ plot(pepper$pc3, col = cm.colors(15), axes = FALSE)
 # – a distinct part of the image that isn’t white-grey-black.
 # The third principle component picks out Pepper’s collar, 
 # which is another distinct part of the image.
+
+####################################
+# apply to bulk sequencing data
+#    see genomic_data_PCA.R
+####################################
+
 
 #################################
 # Chapter 10 Lab 2: Clustering
