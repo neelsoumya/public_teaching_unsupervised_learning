@@ -8,7 +8,7 @@ Public teaching resource on unsupervised learning
 
 `Unsupervised learning.pdf` Slides and powerpoint
 
-`PCA_Notes.pdf` Notes on PCA
+`PCA_Notes.pdf` and `PCA_notes_advanced.pdf` Notes on PCA
 
 `practical` folder has files for practicals
 
