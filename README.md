@@ -2,13 +2,13 @@
 
 ## Introduction
 
-Public teaching resource on unsupervised learning
+Public teaching resource on unsupervised machine learning.
 
 ## Files
 
 `Unsupervised learning.pdf` Slides and powerpoint
 
-`PCA_Notes.pdf` and `PCA_notes_advanced.pdf` Notes on PCA
+`PCA_Notes.pdf`, `PCA_notes_advanced.pdf` and `PCA_notes_advaced_2.pdf` Notes on PCA, theory and important concepts
 
 `practical` folder has files for practicals
 
