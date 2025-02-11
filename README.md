@@ -10,6 +10,8 @@ Public teaching resource on unsupervised machine learning.
 
 `PCA_Notes.pdf`, `PCA_notes_advanced.pdf` and `PCA_notes_advaced_2.pdf` Notes on PCA, theory and important concepts
 
+`Clustering_notes.pdf` Notes on clustering
+
 `practical` folder has files for practicals
 
 `mathematics_data_science.pdf` has additional mathematical notes for the mathematics behind PCA
