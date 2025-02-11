@@ -1,4 +1,6 @@
-Files for practicals
+Practicals for unsupervised learning
+
+## Installation
 
 Install packages by using
 
@@ -12,4 +14,6 @@ or
 ```R
 source('installer.R')
 ```
+
+## Files
 
