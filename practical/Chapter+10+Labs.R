@@ -5,7 +5,9 @@
 
 # load library
 #  install.packages('ISLR')
+#  install.packages('raster')
 library(ISLR)
+library(raster)
 
 ########################################
 # Try demo below
@@ -19,20 +21,25 @@ names(USArrests)
 apply(USArrests, 2, mean)
 apply(USArrests, 2, var)
 
+# Apply PCA
 pr.out=prcomp(USArrests, scale=TRUE)
 names(pr.out)
 
-pr.out$center
+# means and standard deviations of variables (before scaling)
+pr.out$center 
 pr.out$scale
+# get loadings 
 pr.out$rotation
 
 dim(pr.out$x)
+pr.out$x # scores
 
 #################
 # plot biplot
 #################
-biplot(pr.out, scale=0)
+biplot(pr.out, scale=0) # scale = 0: arrows are scaled to represent loadings
 
+# I can rotate the co-ordinate system 
 pr.out$rotation=-pr.out$rotation
 pr.out$x=-pr.out$x
 biplot(pr.out, scale=0)
@@ -40,23 +47,24 @@ biplot(pr.out, scale=0)
 #########################
 # Generate scree plot
 #########################
-pr.out$sdev
-pr.var=pr.out$sdev^2
+pr.out$sdev # standard deviation of each principal component
+pr.var=pr.out$sdev^2 # get variance
 pr.var
 pve=pr.var/sum(pr.var)
 pve
 
 plot(pve, xlab="Principal Component", ylab="Proportion of Variance Explained", ylim=c(0,1),type='b')
-plot(cumsum(pve), xlab="Principal Component", ylab="Cumulative Proportion of Variance Explained", ylim=c(0,1),type='b')
+
+# plot(cumsum(pve), xlab="Principal Component", ylab="Cumulative Proportion of Variance Explained", ylim=c(0,1),type='b')
 #a=c(1,2,8,-3)
 #cumsum(a)
 
 #################################################
 # apply to image data
+#   adapted from 
 #   https://www.rpubs.com/a_pear_9/pca_on_images
 #################################################
 
-library(raster)
 # Import the picture as a raster
 pepper <- stack("Pepper.PNG")[[1:3]]
 # Plot it
@@ -83,14 +91,17 @@ head(pepper.df)
 
 # Compute the principle components
 # Remember to scale the variables
-pca <- prcomp(pepper.df, scale. = TRUE)
+pca <- prcomp(pepper.df, scale = TRUE)
+
 # Save the principle components
 pepper.pc <- pca$x
-pepper$pc1 <- pepper.pc[,1]
-pepper$pc2 <- pepper.pc[,2]
-pepper$pc3 <- pepper.pc[,3]
+pepper$pc1 <- pepper.pc[,1] # take scores for 1st PC
+pepper$pc2 <- pepper.pc[,2] # take scores for 2nd PC
+pepper$pc3 <- pepper.pc[,3] # take scores for 3rd PC
 
-# The interesting thing about these principle components
+# CONCEPT: you can plot these scores
+
+# The interesting thing about these principal components
 # is that each pixel in the image has a value of each 
 # of the principle components, so we can plot an image 
 # of the principle components. 
@@ -100,16 +111,19 @@ plot(pepper$pc2, col = cm.colors(15), axes = FALSE)
 
 plot(pepper$pc3, col = cm.colors(15), axes = FALSE)
 
-# The first principle component image is basically
+# The first principal component image is basically
 # the original image. 
 # But the other two are very interesting. 
-# The second principle component picks out my hand 
+# The second principle component picks out a hand 
 # – a distinct part of the image that isn’t white-grey-black.
 # The third principle component picks out Pepper’s collar, 
 # which is another distinct part of the image.
 
+# biplot(pca, scale=0)
+
 ####################################
-# apply to bulk sequencing data
+#  Advanced exercise
+#  apply to bulk sequencing data
 #    see genomic_data_PCA.R
 ####################################
 
@@ -120,14 +134,20 @@ plot(pepper$pc3, col = cm.colors(15), axes = FALSE)
 
 # K-Means Clustering
 
-set.seed(2)
+set.seed(2) # set seed (k-means is random)
+# create random data
 x=matrix(rnorm(50*2), ncol=2)
+
+# add some noise
 x[1:25,1]=x[1:25,1]+3
 x[1:25,2]=x[1:25,2]-4
+
+x
 
 plot(x)
 
 # nstart = multiple initial cluster assignments
+?kmeans
 km.out=kmeans(x,centers=2,nstart=20)
 km.out$cluster
 
@@ -152,6 +172,8 @@ km.out=kmeans(x,centers=3,nstart=20)
 km.out$tot.withinss
 plot(x, col=(km.out$cluster), main = "K-Means clustering results with K=2 and nstart=20", xlab="", ylab="", pch=20, cex=2)
 
+# TODO: plot withinss as a function of number of clusters (k)
+
 ############################
 # Hierarchical Clustering
 ############################
@@ -173,10 +195,10 @@ plot(hc.complete,main="Complete Linkage", xlab="", sub="", cex=.9)
 plot(hc.average, main="Average Linkage", xlab="", sub="", cex=.9)
 plot(hc.single, main="Single Linkage", xlab="", sub="", cex=.9)
 
-cutree(hc.complete, 2)
-cutree(hc.average, 2)
-cutree(hc.single, 2)
-cutree(hc.single, 4)
+#cutree(hc.complete, 2)
+#cutree(hc.average, 2)
+#cutree(hc.single, 2)
+#cutree(hc.single, 4)
 
 # scale and then do clustering
 xsc=scale(x)
@@ -188,11 +210,27 @@ plot(hclust(dist(xsc), method="complete"), main="Hierarchical Clustering with Sc
 ###################################################
 
 # correlation based distance
+# Example
+cor(x=c(1,3,10), y=c(0, 6, 20))
+
+#Correlation-based distance can be computed using 
+# the as.dist() funcation, which converts an arbitrary
+# square symmetric matrix into a form that
+# the hclust() function recognizes as a distance matrix. 
+# However, this only makes sense for data with at least 
+# three features since the absolute correlation
+# between any two observations with measurements on two
+# features is always 1. Hence, we will cluster a 
+# three-dimensional data set.
+
 x_3d = matrix(rnorm(30*3), ncol=3)
 correlation_distance = as.dist(1-cor(t(x_3d)))
 plot(hclust(correlation_distance, method="complete"), main="Complete Linkage with Correlation-Based Distance", xlab="", sub="")
 
 # EXERCISE: try the other dissimilarity measures
+
+
+
 
 ########################################
 # Chapter 10 Lab 3: NCI60 Data Example
