@@ -12,9 +12,11 @@ Public teaching resource on unsupervised machine learning.
 
 `Clustering_notes.pdf` Notes on clustering
 
+`mathematics_data_science.pdf` has additional mathematical notes for the mathematics behind PCA
+
 `practical` folder has files for practicals
 
-`mathematics_data_science.pdf` has additional mathematical notes for the mathematics behind PCA
+`supervisions` folder has files for supervisions
 
 Also available here:
 
